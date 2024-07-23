@@ -17,5 +17,11 @@ pipeline {
                 build job: 'FreeStyleProject3'
             }
         }
+
+        stage('Trigger AmazonFloraTest1') {
+            steps {
+                build job: 'AmazonFloraTest1'
+            }
+        }
     }
 }
