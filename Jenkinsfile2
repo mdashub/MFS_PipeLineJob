@@ -1,0 +1,10 @@
+pipeline {
+    agent any   
+    stages {
+        stage('Seeing All the environment variables') {
+            steps {
+                bat 'env | sort'
+            }
+        }
+    }
+}
