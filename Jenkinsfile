@@ -1,30 +1,20 @@
 pipeline {
     agent any
-    
-     
 
     stages {
-	
-	stage('Checkout') {
+        stage('Trigger FreeStyleProject1') {
             steps {
-                git branch: 'master', url: 'https://github.com/mdashub/MFS_Jenkins.git'
-            }
-        
-		}
-		
-        stage('Build') {
-            steps {
-                echo 'Building..'
+                build job: 'FreeStyleProject1'
             }
         }
-        stage('Test') {
+        stage('Trigger FreeStyleProject2') {
             steps {
-                echo 'Testing..'
+                build job: 'FreeStyleProject2'
             }
         }
-        stage('Deploy') {
+        stage('Trigger FreeStyleProject3') {
             steps {
-                echo 'Deploying....'
+                build job: 'FreeStyleProject3'
             }
         }
     }
