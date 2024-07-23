@@ -34,17 +34,23 @@ environment {
         always {
             echo 'Cleaning up...'
             cleanWs() 
-            emailext(
-                to: "${RECIPIENTS}",
-                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: "The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has . . . . . Check details at: ${env.BUILD_URL}"
-            )
+          
         }
         success {
             echo 'Pipeline succeeded!'
+             emailext(
+                to: "${RECIPIENTS}",
+                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: "The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has SUCCEEDED. Check details at: ${env.BUILD_URL}"
+            )
         }
         failure {
             echo 'Pipeline failed!'
+             emailext(
+                to: "${RECIPIENTS}",
+                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: "The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has FAILED. Check details at: ${env.BUILD_URL}"
+            )
         }
     }
 }
