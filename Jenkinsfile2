@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Seeing All the environment variables') {
             steps {
-                bat 'env | sort'
+                bat 'set | sort'
             }
         }
     }
