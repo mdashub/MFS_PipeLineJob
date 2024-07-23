@@ -36,6 +36,15 @@ environment {
             cleanWs() 
           
         }
+
+          unstable {
+            echo 'Pipeline succeeded!'
+             emailext(
+                to: "${RECIPIENTS}",
+                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: "The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' has UNSTABLE. Check details at: ${env.BUILD_URL}"
+            )
+        }
         success {
             echo 'Pipeline succeeded!'
              emailext(
