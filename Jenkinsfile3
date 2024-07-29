@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         choice(choices: ['Chrome', 'FCB'], description: 'Choice Description', name: 'ChoiceParameter-Mdas')
-        string(name: 'paraMdas', defaultValue: 'QA', description: 'Environment parameter for Maven')
+        string(name: 'paraMdas', defaultValue: 'QAMdas', description: 'Environment parameter for Maven')
     }
 
     stages {
