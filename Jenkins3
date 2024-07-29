@@ -1,0 +1,73 @@
+
+
+pipeline{
+	
+	agent {
+			label 'aws_qa'
+	}
+
+environment {
+   FREESTYLE_JOB_NAME = 'FreeStyle_ProjectDev'
+}
+
+	parameters {
+			choice choices: ['Chrome', 'FCB'], description: 'Choice Description', name: 'ChoiceParameter-Mdas'
+			
+			 string(name: 'paraMdas', defaultValue: 'QA', description: 'Environment parameter for Maven')
+			}
+
+
+	
+	stage('Wait for FreeStyle_ProjectDev to complete) {
+    steps {
+        script {
+            build job: "${env.FREESTYLE_JOB_NAME}", wait: true
+        }
+    }
+}
+
+	stage('Checkout') {
+            steps {
+                // Checkout from a specific branch
+                git branch: 'smoke', url: 'https://github.com/mdashub/MFS_Jenkins.git'
+            }
+        }
+
+
+	stage('Test') {
+            steps {
+               
+             sh "mvn clean install -DparaMdas=${params.paraMdas}"
+
+            }
+        }
+
+		stage('Publish TestNG Report') {
+            steps {
+                // Publish TestNG report
+                publishTestNG testResultsPattern: '**/target/surefire-reports/testng-results.xml'
+            }
+        }
+
+        stage('Archive Test Results') {
+            steps {
+                // Archive test results
+                archiveArtifacts artifacts: '**/target/surefire-reports/*.xml', allowEmptyArchive: true
+            }
+        }
+
+
+
+ post {
+        always {
+            // Send email notification
+            mail to: 'infinityloves49@gmail.com',
+                 subject: "Jenkins Build ${currentBuild.fullDisplayName}",
+                 body: """\
+                 Build ${currentBuild.fullDisplayName} finished.
+                 Status: ${currentBuild.result}
+                 Check console output at ${env.BUILD_URL} to view the results.
+                 """
+        }
+    }
+}
