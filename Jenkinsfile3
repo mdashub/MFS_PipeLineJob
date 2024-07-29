@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        FREESTYLE_JOB_NAME = 'FreeStyle_ProjectDev'
+        FREESTYLE_JOB_NAME = 'FreeStyleProj1'
     }
 
     parameters {
