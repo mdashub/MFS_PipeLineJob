@@ -1,45 +1,39 @@
-
-
-pipeline{
-	
-	agent any
-environment {
-   FREESTYLE_JOB_NAME = 'FreeStyle_ProjectDev'
-}
-
-	parameters {
-			choice choices: ['Chrome', 'FCB'], description: 'Choice Description', name: 'ChoiceParameter-Mdas'
-			
-			 string(name: 'paraMdas', defaultValue: 'QA', description: 'Environment parameter for Maven')
-			}
-
-
-	
-	stage('Wait for FreeStyle_ProjectDev to complete) {
-    steps {
-        script {
-            build job: "${env.FREESTYLE_JOB_NAME}", wait: true
-        }
+pipeline {
+    agent any
+    
+    environment {
+        FREESTYLE_JOB_NAME = 'FreeStyle_ProjectDev'
     }
-}
 
-	stage('Checkout') {
+    parameters {
+        choice(choices: ['Chrome', 'FCB'], description: 'Choice Description', name: 'ChoiceParameter-Mdas')
+        string(name: 'paraMdas', defaultValue: 'QA', description: 'Environment parameter for Maven')
+    }
+
+    stages {
+        stage('Wait for FreeStyle_ProjectDev to complete') {
+            steps {
+                script {
+                    build job: "${env.FREESTYLE_JOB_NAME}", wait: true
+                }
+            }
+        }
+
+        stage('Checkout') {
             steps {
                 // Checkout from a specific branch
                 git branch: 'smoke', url: 'https://github.com/mdashub/MFS_Jenkins.git'
             }
         }
 
-
-	stage('Test') {
+        stage('Test') {
             steps {
-               
-             sh "mvn clean install -DparaMdas=${params.paraMdas}"
-
+                // Run Maven clean install with parameter
+                sh "mvn clean install -DparaMdas=${params.paraMdas}"
             }
         }
 
-		stage('Publish TestNG Report') {
+        stage('Publish TestNG Report') {
             steps {
                 // Publish TestNG report
                 publishTestNG testResultsPattern: '**/target/surefire-reports/testng-results.xml'
@@ -52,10 +46,9 @@ environment {
                 archiveArtifacts artifacts: '**/target/surefire-reports/*.xml', allowEmptyArchive: true
             }
         }
+    }
 
-
-
- post {
+    post {
         always {
             // Send email notification
             mail to: 'infinityloves49@gmail.com',
