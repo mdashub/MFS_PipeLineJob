@@ -1,4 +1,3 @@
-
 pipeline{
 
 agent any
@@ -11,7 +10,7 @@ stages {
 
 stage('git checkouts') {
   steps {
-  git branch:smoke, url:https://github.com/mdashub/MFS_PipeLineJob.git
+  git branch:smoke, url:'https://github.com/mdashub/MFS_PipeLineJob.git'
   }
 }
 
