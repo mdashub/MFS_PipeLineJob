@@ -13,6 +13,7 @@ stages {
 stage('git checkouts') {
   steps {
             git branch:"${params.branchOfProject}", url:'https://github.com/mdashub/MFS_Jenkins.git'
+            echo "${params.branchOfProject}"
   }
 }
 
