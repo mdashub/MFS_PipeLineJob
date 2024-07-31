@@ -1,0 +1,24 @@
+
+pipeline{
+
+agent any
+
+parameters {
+  string name: 'paramMdas_POM', defaultValue: 'QA', description: 'This is the value passing from paraMdas defined in '
+}
+
+stages {
+
+stage('git checkouts') {
+  steps {
+  git branch:smoke, url:https://github.com/mdashub/MFS_PipeLineJob.git
+  }
+}
+
+stage ('run test'){
+      steps{
+      sh "mvn clean install -DparaMdas=${params.paramMdas_POM}"
+        }
+      }
+  }
+}
