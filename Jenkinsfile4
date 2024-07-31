@@ -16,7 +16,7 @@ stage('git checkouts') {
 
 stage ('run test'){
       steps{
-      sh "mvn clean install -DparaMdas=${params.paramMdas_POM}"
+      bat "mvn clean install -DparaMdas=${params.paramMdas_POM}"
         }
       }
   }
