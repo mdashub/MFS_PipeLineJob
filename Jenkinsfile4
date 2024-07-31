@@ -19,7 +19,7 @@ stage('git checkouts') {
 stage ('run test'){
       steps{
             bat "mvn clean install -DparaMdas=${params.paramMdas_POM}"
-            junit  testResultsPattern: '**/testng-results.xml'
+            junit : '**/testng-results.xml'
         }
       }
 
