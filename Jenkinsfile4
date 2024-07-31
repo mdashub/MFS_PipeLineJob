@@ -4,20 +4,26 @@ agent any
 
 parameters {
   string (name: 'paramMdas_POM', defaultValue: 'QA', description: 'This is the value passing from paraMdas defined in Jenkins Declarative PipleLine from SCM GIT ')
+  parameters {
+  choice (name: 'branchOfProject(Amazon)', choices: ['master', 'smoke'], description: 'This is the branch name required for Amazon test to run')
+}
+
 }
 
 stages {
 
 stage('git checkouts') {
   steps {
-  git branch:'smoke', url:'https://github.com/mdashub/MFS_Jenkins.git'
+            git branch:'smoke', url:'https://github.com/mdashub/MFS_Jenkins.git'
   }
 }
 
 stage ('run test'){
       steps{
-      bat "mvn clean install -DparaMdas=${params.paramMdas_POM}"
+            bat "mvn clean install -DparaMdas=${params.paramMdas_POM}"
+            publishTestNG testResultsPattern: '**/testng-results.xml'
         }
       }
+
   }
 }
