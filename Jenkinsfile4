@@ -20,7 +20,7 @@ stage('git checkouts') {
 stage ('run test'){
       steps{
             bat "mvn clean install -DparaMdas=${params.paramMdas_POM}"
-            testNg()
+            testNG()
         }
       }
 
