@@ -3,7 +3,7 @@ pipeline{
 agent any
 
 parameters {
-  string (name: 'paramMdas_POM', defaultValue: 'QA', description: 'This is the value passing from paraMdas defined in ')
+  string (name: 'paramMdas_POM', defaultValue: 'QA', description: 'This is the value passing from paraMdas defined in Jenkins Declarative PipleLine from SCM GIT ')
 }
 
 stages {
