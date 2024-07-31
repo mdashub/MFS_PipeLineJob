@@ -21,8 +21,14 @@ stage ('run test'){
       steps{
             bat "mvn clean install -DparaMdas=${params.paramMdas_POM}"
             testNG()
+            archiveArtifacts artifacts: '**/*.jar',
+                   allowEmptyArchive: true,
+                   fingerprint: true,
+                   onlyIfSuccessful: true
         }
       }
 
   }
+
+
 }
