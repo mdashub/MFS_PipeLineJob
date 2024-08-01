@@ -7,7 +7,9 @@ parameters {
   choice (name: 'branchOfProject', choices: ['master', 'smoke'], description: 'This is the branch name required for Amazon test to run')
 
 }
-
+environment {
+        RECIPIENTS = 'infinityloves49@gmail.com'
+    }
 stages {
 
 stage('git checkouts') {
