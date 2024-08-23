@@ -3,7 +3,7 @@ pipeline{
 agent any
 
 parameters {
-  string (name: 'paramMdas_POM', defaultValue: 'QA', description: 'This is the value passing from paraMdas defined in Jenkins Declarative PipleLine from SCM GIT ')
+  string (name: 'paramMdas_POM', defaultValue: 'Staging', description: 'This is the value passing from paraMdas defined in Jenkins Declarative PipleLine from SCM GIT ')
   choice (name: 'branchOfProject', choices: ['master', 'smoke'], description: 'This is the branch name required for Amazon test to run')
 
 }
